@@ -2,6 +2,7 @@ import scrapy
 
 from Scrapy.items import DmozItem
 
+
 class DmozSpider(scrapy.Spider):
     name = "dmoz"
     allowed_domains = ["dmoz.org"]
@@ -16,10 +17,10 @@ class DmozSpider(scrapy.Spider):
             url = response.urljoin(response.url, href.extract())
             yield scrapy.Request(url, callback=self.parse_dir_contents)
 
-
     # 生成item
     def parse_dir_contents(self, response):
-        for sel in response.xpath("/html/body/div[@id='main-content']/div[@id='doc']/section[@class='results sites']/div[@id='sites-section']/div[@id='site-list-content']"):
+        for sel in response.xpath(
+                "/html/body/div[@id='main-content']/div[@id='doc']/section[@class='results sites']/div[@id='sites-section']/div[@id='site-list-content']"):
             item = DmozItem()
             item['title'] = sel.xpath("//div[@class='title-and-desc']/a/div[@class='site-title']/text()").extract()
             item['link'] = sel.xpath("//div[@class='title-and-desc']/a/@href").extract()
