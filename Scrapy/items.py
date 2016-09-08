@@ -13,6 +13,7 @@ class ScrapyItem(scrapy.Item):
     # name = scrapy.Field()
     pass
 
+
 class DmozItem(scrapy.Item):
     title = scrapy.Field()
     link = scrapy.Field()
